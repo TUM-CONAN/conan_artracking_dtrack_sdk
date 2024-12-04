@@ -1,3 +1,0 @@
-/home/narvis/Desktop/conan_artracking_dtrack_sdk/src/CMakeFiles/DTrackSDK.dir
-/home/narvis/Desktop/conan_artracking_dtrack_sdk/src/CMakeFiles/edit_cache.dir
-/home/narvis/Desktop/conan_artracking_dtrack_sdk/src/CMakeFiles/rebuild_cache.dir
