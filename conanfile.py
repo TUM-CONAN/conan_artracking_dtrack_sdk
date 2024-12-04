@@ -19,7 +19,9 @@ class ARTTrackingConan(ConanFile):
 
     settings = "os", "arch", "compiler", "build_type"
 
-    exports_sources = "src*"
+    exports = "Makefile"
+
+    # exports_sources = "src*"
 
     options = {
         # "shared": [True, False],
@@ -33,6 +35,12 @@ class ARTTrackingConan(ConanFile):
     # def requirements(self):
     #     self.requires("gtest/1.14.0")
 
+    # TODO use yml file for the tag version
+    def source(self):
+         get(self,
+             "https://github.com/ar-tracking/DTrackSDK/archive/refs/tags/v2.9.0.zip",
+             strip_root = True)
+
     def layout(self):
         basic_layout(self, src_folder="src")
 
@@ -42,6 +50,8 @@ class ARTTrackingConan(ConanFile):
     
     def build(self):
         # for now only on linux .. windows is built using msbuild
+        copy(self, "Makefile", src=self.recipe_folder,
+             dst=self.source_folder)
         with VirtualRunEnv(self).vars().apply():
                 with chdir(self, self.source_folder):
                     self.run("make libDTrackSDK")
