@@ -19,9 +19,8 @@ class ARTTrackingConan(ConanFile):
 
     settings = "os", "arch", "compiler", "build_type"
 
-    exports = "Makefile"
-
-    # exports_sources = "src*"
+    exports = "CMakeLists.txt"
+    generators = "CMakedeps", "CMakeToolchain"
 
     options = {
         # "shared": [True, False],
