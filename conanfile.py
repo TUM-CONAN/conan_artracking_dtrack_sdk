@@ -20,7 +20,6 @@ class ARTTrackingConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
 
     exports = "CMakeLists.txt"
-    generators = "CMakedeps", "CMakeToolchain"
 
     options = {
         # "shared": [True, False],
@@ -42,18 +41,15 @@ class ARTTrackingConan(ConanFile):
 
     def layout(self):
         basic_layout(self, src_folder="src")
-
-    def generate(self):
-        deps = MakeDeps(self)
-        deps.generate()
     
     def build(self):
         # for now only on linux .. windows is built using msbuild
-        copy(self, "Makefile", src=self.recipe_folder,
+        copy(self, "CMakeLists.txt", src=self.recipe_folder,
              dst=self.source_folder)
         with VirtualRunEnv(self).vars().apply():
                 with chdir(self, self.source_folder):
-                    self.run("make libDTrackSDK")
+                    self.run("cmake .")
+                    self.run("cmake --build .")
     
     def package(self):
         #libs
